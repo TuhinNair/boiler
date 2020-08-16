@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Boilerplate App",
   "scripts": {
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "dev": "next",
+    "build": "next build"
   },
   "author": "Tuhin Nair",
   "license": "MIT",
