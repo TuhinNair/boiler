@@ -10,9 +10,9 @@
         "allowSyntheticDefaultImports": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "removeComments": true,
+        "removeComments": false,
         "preserveConstEnums": true,
-        "sourceMap": false,
+        "sourceMap": true,
         "skipLibCheck": true,
         "baseUrl": ".",
         "typeRoots": [

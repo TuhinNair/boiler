@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx --fix",
     "dev": "next",
-    "build": "next build"
+    "build": "next build && tsc --project tsconfig.server.json"
   },
   "author": "Tuhin Nair",
   "license": "MIT",
@@ -25,6 +25,7 @@
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
     "prettier": "^2.0.5"
   }
 }
