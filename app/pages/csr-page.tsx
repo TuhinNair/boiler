@@ -8,7 +8,7 @@ const CSRPage = () => (
       <title>CSR Page</title>
       <meta name="description" content="This is a description of the CSR Page " />
     </Head>
-    <div style={{ padding: '0px 30px', fontSize: '15px', height: '100%', color: '#222' }}>
+    <div style={{ padding: '0px 30px', fontSize: '15px', height: '100%' }}>
       <p>Content on CSR Page</p>
       <Button variant="outlined">Some button</Button>
     </div>

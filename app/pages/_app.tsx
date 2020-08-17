@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { theme } from '../lib/theme';
+import { themeDark, themeLight } from '../lib/theme';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core';
@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={true ? themeDark : themeLight}>
         <CssBaseline />
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1.0" />
