@@ -17,6 +17,8 @@ const Index = () => (
         <Link href="/csr-page" as="/csr-page">
           <a>Go to CSR Page</a>
         </Link>
+        <p />
+        <i className="material-icons">menu</i>
       </div>
     </div>
   </Layout>
