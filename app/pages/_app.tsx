@@ -1,14 +1,27 @@
 import type { AppProps } from 'next/app';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { theme } from '../lib/theme';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { ThemeProvider } from '@material-ui/core';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  useEffect(() => {
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }, []);
+
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
-      <Component {...pageProps} />
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        </Head>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 }
