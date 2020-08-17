@@ -1,15 +1,16 @@
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Router from 'next/router';
-import React, { useState } from 'react';
+import Router, { NextRouter, withRouter } from 'next/router';
+import React, { useState, memo } from 'react';
 
 type Props = {
   options: any[];
+  router: NextRouter;
   children: React.ReactNode;
 };
 const MenuWithLinks = (props: Props) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { options, children } = props;
+  const { options, router, children } = props;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,7 +48,7 @@ const MenuWithLinks = (props: Props) => {
               }}
               key={option.href}
               style={{
-                fontWeight: 300,
+                fontWeight: router.asPath.includes(option.highlighterSlug) ? 600 : 300,
                 fontSize: '14px',
               }}
             >
@@ -60,4 +61,4 @@ const MenuWithLinks = (props: Props) => {
   );
 };
 
-export default MenuWithLinks;
+export default memo(withRouter(MenuWithLinks));

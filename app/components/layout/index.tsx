@@ -1,5 +1,7 @@
+import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
+import MenuWithLinks from '../common/MenuWithLinks';
 
 const styleGrid = {
   width: '100vw',
@@ -58,7 +60,44 @@ const Layout = (props: Props) => {
                 />
               </g>
             </svg>
-            <p> Clickable Avatar</p>
+            <MenuWithLinks
+              options={[
+                {
+                  text: 'Index page',
+                  href: '/',
+                  highlighterSlug: '/',
+                },
+                {
+                  text: 'Your Settings',
+                  href: '/your-settings',
+                  highlighterSlug: '/your-settings',
+                },
+                {
+                  separator: true,
+                },
+                {
+                  text: 'Log out',
+                  href: '/logout',
+                  highlighterSlug: '/logout',
+                },
+              ]}
+            >
+              <Avatar
+                src={'https://storage.googleapis.com/async-await/default-user.png'}
+                alt="Add username here later in the book"
+                style={{
+                  margin: '20px auto',
+                  cursor: 'pointer',
+                  display: 'inline-flex',
+                  width: '40px',
+                  height: '40px',
+                }}
+              />
+
+              <i className="material-icons" color="action" style={{ verticalAlign: 'super' }}>
+                arrow_drop_down
+              </i>
+            </MenuWithLinks>
           </div>
           <hr />
           <p />
