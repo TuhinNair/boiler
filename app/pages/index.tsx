@@ -11,8 +11,8 @@ import NProgress from 'nprogress';
 import notify from '../lib/notify';
 import confirm from '../lib/confirm';
 
-const Index = () => (
-  <Layout firstGridItem={true}>
+const Index = (props) => (
+  <Layout {...props}>
     <div>
       <Head>
         <title>Index Page</title>

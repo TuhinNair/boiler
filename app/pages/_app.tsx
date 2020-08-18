@@ -4,6 +4,7 @@ import { themeDark, themeLight } from '../lib/theme';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import { ThemeProvider } from '@material-ui/core';
+import { isMobile } from '../lib/isMobile';
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -25,5 +26,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+MyApp.getInitialProps = async ({ Component, ctx }) => {
+  let pageProps = { isMobile: isMobile({ req: ctx.req }), firstGridItem: true };
+
+  if (Component.getInitialProps) {
+    const compProps = await Component.getInitialProps(ctx);
+    pageProps = { ...pageProps, ...compProps };
+  }
+
+  return { pageProps };
+};
 
 export default MyApp;
