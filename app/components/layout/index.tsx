@@ -2,6 +2,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import MenuWithLinks from '../common/MenuWithLinks';
+import Notifier from '../common/Notifier';
 
 const styleGrid = {
   width: '100vw',
@@ -107,6 +108,7 @@ const Layout = (props: Props) => {
       <Grid item sm={10} xs={12}>
         {children}
       </Grid>
+      <Notifier />
     </Grid>
   );
 };
