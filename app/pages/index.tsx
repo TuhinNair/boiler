@@ -6,6 +6,8 @@ import Link from 'next/link';
 
 import Layout from '../components/layout';
 
+import NProgress from 'nprogress';
+
 import notify from '../lib/notify';
 import confirm from '../lib/confirm';
 
@@ -35,11 +37,15 @@ const Index = () => (
                   return;
                 }
 
+                NProgress.start();
+
                 try {
                   notify('You successfully confirmed');
                 } catch (err) {
                   console.log(err);
                   notify(err);
+                } finally {
+                  NProgress.done();
                 }
               },
             })
