@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import MenuWithLinks from '../common/MenuWithLinks';
 import Notifier from '../common/Notifier';
+import Confirmer from '../common/Confirmer';
 
 const styleGrid = {
   width: '100vw',
@@ -109,6 +110,7 @@ const Layout = (props: Props) => {
         {children}
       </Grid>
       <Notifier />
+      <Confirmer />
     </Grid>
   );
 };

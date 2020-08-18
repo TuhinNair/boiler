@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Layout from '../components/layout';
 
 import notify from '../lib/notify';
+import confirm from '../lib/confirm';
 
 const Index = () => (
   <Layout firstGridItem={true}>
@@ -21,8 +22,30 @@ const Index = () => (
           <a>Go to CSR Page</a>
         </Link>
         <p />
-        <Button variant="contained" onClick={() => notify('this happened')}>
-          Open Notifier
+        <Button
+          variant="contained"
+          onClick={() =>
+            confirm({
+              title: 'Are you sure?',
+              message: 'Explanation',
+              onAnswer: async (answer: boolean) => {
+                console.log(answer);
+
+                if (!answer) {
+                  return;
+                }
+
+                try {
+                  notify('You successfully confirmed');
+                } catch (err) {
+                  console.log(err);
+                  notify(err);
+                }
+              },
+            })
+          }
+        >
+          Confirm and Notify
         </Button>
       </div>
     </div>
