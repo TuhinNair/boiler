@@ -13,7 +13,7 @@ export default async function sendRequestAndGetResponse(path: string, opts: any 
 
   const qs = opts.qs || '';
 
-  const response = await fetch(`${path}${qs}`, {
+  const response = await fetch(`${process.env.URL_APP}${path}${qs}`, {
     ...{ method: 'POST', credentials: 'include' },
     ...opts,
     ...{ headers },

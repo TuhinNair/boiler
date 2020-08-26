@@ -11,51 +11,64 @@ import NProgress from 'nprogress';
 import notify from '../lib/notify';
 import confirm from '../lib/confirm';
 
-const Index = (props) => (
-  <Layout {...props}>
-    <div>
-      <Head>
-        <title>Index Page</title>
-        <meta name="description" content="This is a description of the Index Page" />
-      </Head>
-      <div style={{ padding: '0px 30px', fontSize: '15px', height: '100%' }}>
-        <p>Welcome to the Index :)</p>
-        <Link href="/csr-page" as="/csr-page">
-          <a>Go to CSR Page</a>
-        </Link>
-        <p />
-        <Button
-          variant="contained"
-          onClick={() =>
-            confirm({
-              title: 'Are you sure?',
-              message: 'Explanation',
-              onAnswer: async (answer: boolean) => {
-                console.log(answer);
+import { getUser } from '../lib/api/public';
 
-                if (!answer) {
-                  return;
-                }
+type Props = { user: { email: string } };
 
-                NProgress.start();
+const Index = (props: Props) => {
+  return (
+    <Layout {...props}>
+      <div>
+        <Head>
+          <title>Index Page</title>
+          <meta name="description" content="This is a description of the Index Page" />
+        </Head>
+        <div style={{ padding: '0px 30px', fontSize: '15px', height: '100%' }}>
+          <p>Welcome to the Index :)</p>
+          <Link href="/csr-page" as="/csr-page">
+            <a>Go to CSR Page</a>
+          </Link>
+          <p />
+          <Button
+            variant="contained"
+            onClick={() =>
+              confirm({
+                title: 'Are you sure?',
+                message: 'Explanation',
+                onAnswer: async (answer: boolean) => {
+                  if (!answer) {
+                    return;
+                  }
 
-                try {
-                  notify('You successfully confirmed');
-                } catch (err) {
-                  console.log(err);
-                  notify(err);
-                } finally {
-                  NProgress.done();
-                }
-              },
-            })
-          }
-        >
-          Confirm and Notify
-        </Button>
+                  NProgress.start();
+
+                  try {
+                    notify('You successfully confirmed');
+                  } catch (err) {
+                    console.log(err);
+                    notify(err);
+                  } finally {
+                    NProgress.done();
+                  }
+                },
+              })
+            }
+          >
+            Confirm and Notify
+          </Button>
+        </div>
       </div>
-    </div>
-  </Layout>
-);
+    </Layout>
+  );
+};
+
+Index.getInitialProps = async (ctx) => {
+  const { req } = ctx;
+
+  const user = await getUser(req);
+
+  console.log(user);
+  return { ...user };
+};
 
 export default Index;
