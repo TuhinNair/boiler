@@ -4,7 +4,7 @@
   "description": "Boilerplate App",
   "scripts": {
     "lint": "eslint . --ext .ts,.tsx --fix",
-    "dev": "next",
+    "dev": "next && ts-node-dev --respawn --transpileOnly --project tsconfig.server.json --ignore-watch .next --ignore-watch components --ignore-watch lib --ignore-watch pages -- server/server.ts",
     "build": "next build && tsc --project tsconfig.server.json"
   },
   "author": "Tuhin Nair",
@@ -12,11 +12,13 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.5.2",
     "nprogress": "^0.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "ts-node-dev": "^1.0.0-pre.61",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
