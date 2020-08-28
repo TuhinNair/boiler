@@ -17,8 +17,7 @@ app.prepare().then(() => {
 
   server.use(express.json());
 
-  server.get('/api/v1/public/get-user', (req, res) => {
-    console.log(req.body);
+  server.get('/api/v1/public/get-user', (_, res) => {
     res.json({ user: { email: 'tuhin@tuhin.org' } });
   });
 

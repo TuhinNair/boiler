@@ -56,6 +56,7 @@ const Index = (props: Props) => {
           >
             Confirm and Notify
           </Button>
+          <p>Email: {props.user.email}</p>
         </div>
       </div>
     </Layout>
