@@ -68,7 +68,6 @@ Index.getInitialProps = async (ctx) => {
 
   const user = await getUser(req);
 
-  console.log(user);
   return { ...user };
 };
 

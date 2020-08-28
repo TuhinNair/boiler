@@ -22,12 +22,11 @@ export default async function sendRequestAndGetResponse(path: string, opts: any 
     config.body = null;
   }
 
-  const response = await fetch(`${process.env.URL_APP}${path}${qs}`, config);
+  const response = await fetch(`${process.env.URL_API}${path}${qs}`, config);
 
   const text = await response.text();
 
   if (response.status >= 400) {
-    console.log(`${process.env.URL_APP}${path}${qs}`);
     throw new Error(response.statusText);
   }
 

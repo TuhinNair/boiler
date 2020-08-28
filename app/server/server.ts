@@ -11,15 +11,10 @@ app.prepare().then(() => {
   const server = express();
 
   server.get('/_next/*', (req, res) => {
-    console.log('next server, page');
     handle(req, res);
   });
 
   server.use(express.json());
-
-  server.get('/api/v1/public/get-user', (_, res) => {
-    res.json({ user: { email: 'tuhin@tuhin.org' } });
-  });
 
   server.all('*', (req, res) => {
     handle(req, res);
