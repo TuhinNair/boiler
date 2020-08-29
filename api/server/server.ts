@@ -1,13 +1,13 @@
 import './env';
 import * as express from 'express';
 
+import api from './api';
+
 const server = express();
 
 server.use(express.json());
 
-server.get('/api/v1/public/get-user', (_, res) => {
-    res.json({user: {email: 'tuhin@tuhin.com'}});
-})
+api(server);
 
 server.get('*', (_, res) => {
     res.sendStatus(403);
