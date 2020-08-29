@@ -11,9 +11,9 @@ import NProgress from 'nprogress';
 import notify from '../lib/notify';
 import confirm from '../lib/confirm';
 
-import { getUser } from '../lib/api/public';
+import { getUserBySlugApiMethod } from '../lib/api/public';
 
-type Props = { user: { email: string } };
+type Props = { user: { email: string; displayName: string } };
 
 const Index = (props: Props) => {
   return (
@@ -57,16 +57,19 @@ const Index = (props: Props) => {
             Confirm and Notify
           </Button>
           <p>Email: {props.user.email}</p>
+          <p>Name: {props.user.displayName}</p>
         </div>
       </div>
     </Layout>
   );
 };
 
-Index.getInitialProps = async (ctx) => {
-  const { req } = ctx;
+Index.getInitialProps = async () => {
+  const slug = 'almost-nihilist';
 
-  const user = await getUser(req);
+  const user = await getUserBySlugApiMethod(slug);
+
+  console.log(user);
 
   return { ...user };
 };

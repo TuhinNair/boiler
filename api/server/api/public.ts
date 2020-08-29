@@ -8,9 +8,9 @@ router.post('/get-user-by-slug', async (req, res, next) => {
     try {
         const {slug} = req.body;
 
-        const userDoc = await User.getUserBySlug({slug});
+        const user = await User.getUserBySlug({slug});
 
-        res.json({userDoc});
+        res.json({user});
     } catch (err) {
         next(err);
     }
