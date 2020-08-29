@@ -4,8 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "ts-node-dev --respawn --transpileOnly --project tsconfig.server.json --poll -- server/server.ts"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testPathIgnorePatterns": [
+      "production-server"
+    ],
+    "testEnvironment": "node"
   },
   "author": "Tuhin Nair",
   "license": "ISC",

@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { triggerAsyncId } from 'async_hooks';
 
 mongoose.set('useFindAndModify', false);
 
