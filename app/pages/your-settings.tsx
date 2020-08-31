@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import NProgress from 'nprogress';
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { resizeImage } from '../lib/resizeImage';
 
 import Layout from '../components/layout';
 
@@ -87,8 +88,9 @@ const YourSettings = (props: Props) => {
         bucket,
       });
 
+      const resizedImage = await resizeImage(file, 128, 128);
       await uploadFileUsingSignedPutRequestApiMethod(
-        file,
+        resizedImage,
         responseFromApiServerForUpload.signedRequest,
         {
           'Cache-Control': 'max-age=2592000',
