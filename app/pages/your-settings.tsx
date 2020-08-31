@@ -10,6 +10,11 @@ import Layout from '../components/layout';
 
 import { getUserBySlugApiMethod, updateProfileApiMethod } from '../lib/api/public';
 
+import {
+  getSignedRequestForUploadApiMethod,
+  uploadFileUsingSignedPutRequestApiMethod,
+} from '../lib/api/team-member';
+
 import notify from '../lib/notify';
 
 type Props = {
@@ -25,14 +30,19 @@ type State = {
 
 const YourSettings = (props: Props) => {
   const { user } = props;
-  const [form, setForm] = useState({
+  const initState: State = {
     newName: user.displayName,
     newAvatarUrl: user.avatarUrl,
     disabled: false,
-  });
+  };
+  const [form, setForm] = useState(initState);
 
   const handleUpdateForm = ({ target: { value } }, key) => {
     setForm({ ...form, [key]: value });
+  };
+
+  const handleUpdateAvatarUrl = (url) => {
+    setForm({ ...form, newAvatarUrl: url });
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -54,8 +64,58 @@ const YourSettings = (props: Props) => {
     }
   };
 
-  const handleUploadFile = () => {
-    console.log('upload file');
+  const handleUploadFile = async () => {
+    const fileElement = document.getElementById('upload-file') as HTMLFormElement;
+    const file = fileElement.files[0];
+
+    if (file == null) {
+      notify('No file selected for upload');
+      return;
+    }
+
+    const fileName = file.name;
+    const fileType = file.type;
+
+    NProgress.start();
+    setForm({ ...form, disabled: true });
+
+    const bucket = process.env.BUCKET_FOR_AVATARS;
+
+    const prefix = 'node-service';
+
+    try {
+      const responseFromApiServerForUpload = await getSignedRequestForUploadApiMethod({
+        fileName,
+        fileType,
+        prefix,
+        bucket,
+      });
+      console.log('resonse From Api Server for upload ', responseFromApiServerForUpload);
+
+      await uploadFileUsingSignedPutRequestApiMethod(
+        file,
+        responseFromApiServerForUpload.signedRequest,
+        {
+          'Cache-Control': 'max-age=2592000',
+        },
+      );
+
+      handleUpdateAvatarUrl(responseFromApiServerForUpload.url);
+      console.log('form ', form);
+
+      await updateProfileApiMethod({
+        name: form.newName,
+        avatarUrl: responseFromApiServerForUpload.url,
+      });
+
+      notify('You successfully uploaded new avatar');
+    } catch (error) {
+      notify(error);
+    } finally {
+      fileElement.value = '';
+      setForm({ ...form, disabled: false });
+      NProgress.done();
+    }
   };
 
   return (
@@ -132,7 +192,6 @@ YourSettings.getInitialProps = async () => {
   const slug = 'almost-nihilist';
 
   const user = await getUserBySlugApiMethod(slug);
-
   return { ...user };
 };
 

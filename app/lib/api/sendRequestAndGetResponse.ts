@@ -1,9 +1,15 @@
 import 'isomorphic-unfetch';
 
 export default async function sendRequestAndGetResponse(path: string, opts: any = {}) {
-  const headers = Object.assign({}, opts.headers || {}, {
-    'Content-type': 'application/json; charset=UTF-8',
-  });
+  const headers = Object.assign(
+    {},
+    opts.headers || {},
+    opts.externalServer
+      ? {}
+      : {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+  );
 
   const { request } = opts;
   if (request && request.headers && request.headers.cookie) {
@@ -22,7 +28,10 @@ export default async function sendRequestAndGetResponse(path: string, opts: any 
     config.body = null;
   }
 
-  const response = await fetch(`${process.env.URL_API}${path}${qs}`, config);
+  const response = await fetch(
+    opts.externalServer ? `${path}${qs}` : `${process.env.URL_API}${path}${qs}`,
+    config,
+  );
 
   const text = await response.text();
 
