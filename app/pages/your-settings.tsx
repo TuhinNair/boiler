@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import NProgress from 'nprogress';
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Layout from '../components/layout';
 
@@ -41,10 +41,6 @@ const YourSettings = (props: Props) => {
     setForm({ ...form, [key]: value });
   };
 
-  const handleUpdateAvatarUrl = (url) => {
-    setForm({ ...form, newAvatarUrl: url });
-  };
-
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -77,7 +73,7 @@ const YourSettings = (props: Props) => {
     const fileType = file.type;
 
     NProgress.start();
-    setForm({ ...form, disabled: true });
+    setForm((form) => ({ ...form, disabled: true }));
 
     const bucket = process.env.BUCKET_FOR_AVATARS;
 
@@ -90,7 +86,6 @@ const YourSettings = (props: Props) => {
         prefix,
         bucket,
       });
-      console.log('resonse From Api Server for upload ', responseFromApiServerForUpload);
 
       await uploadFileUsingSignedPutRequestApiMethod(
         file,
@@ -100,20 +95,18 @@ const YourSettings = (props: Props) => {
         },
       );
 
-      handleUpdateAvatarUrl(responseFromApiServerForUpload.url);
-      console.log('form ', form);
-
       await updateProfileApiMethod({
         name: form.newName,
         avatarUrl: responseFromApiServerForUpload.url,
       });
 
+      setForm((form) => ({ ...form, newAvatarUrl: responseFromApiServerForUpload.url }));
       notify('You successfully uploaded new avatar');
     } catch (error) {
       notify(error);
     } finally {
       fileElement.value = '';
-      setForm({ ...form, disabled: false });
+      setForm((form) => ({ ...form, disabled: false }));
       NProgress.done();
     }
   };
