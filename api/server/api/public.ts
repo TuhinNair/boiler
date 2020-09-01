@@ -5,6 +5,7 @@ import User from '../models/User';
 const router = express.Router();
 
 router.post('/get-user-by-slug', async (req, res, next) => {
+    req.session.foo = 'bar';
     try {
         const {slug} = req.body;
 

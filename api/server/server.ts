@@ -1,6 +1,8 @@
 import './env';
+import * as mongoSessionStore from 'connect-mongo';
 import * as cors from 'cors';
 import * as express from 'express';
+import * as session from 'express-session';
 import * as mongoose from 'mongoose';
 
 import api from './api';
@@ -21,6 +23,21 @@ const server = express();
 server.use(cors({origin: process.env.URL_APP, credentials: true}));
 
 server.use(express.json());
+
+const MongoStore = mongoSessionStore(session);
+
+const sessionOptions = {
+    name: process.env.SESSION_NAME,
+    secret: process.env.SESSION_SECRET,
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: 14*24*60*60
+    }),
+    resave: false,
+    saveUninitialized: false,
+};
+
+server.use(session(sessionOptions));
 
 api(server);
 
