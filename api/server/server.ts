@@ -35,6 +35,11 @@ const sessionOptions = {
     }),
     resave: false,
     saveUninitialized: false,
+    cookie: {
+        httpOnly: true,
+        maxAge: 14 * 24 * 60 * 60 * 1000,
+        secure: false,
+    }
 };
 
 server.use(session(sessionOptions));
