@@ -69,8 +69,6 @@ Index.getInitialProps = async () => {
 
   const user = await getUserBySlugApiMethod(slug);
 
-  console.log(user);
-
   return { ...user };
 };
 
