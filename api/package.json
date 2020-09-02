@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint . --ext .ts,.tsx --fix",
     "test": "jest",
     "dev": "ts-node-dev --respawn --transpileOnly --project tsconfig.server.json --poll -- server/server.ts"
   },
@@ -44,6 +45,7 @@
     "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.6",
     "jest": "^26.4.2",
     "prettier": "^2.1.1",
     "ts-jest": "^26.3.0",
