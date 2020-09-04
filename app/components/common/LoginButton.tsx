@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 
 import { styleLoginButton } from '../../lib/sharedStyles';
 
-const LoginButton = (props) => {
+const LoginButton = () => {
   const url = `${process.env.URL_API}/auth/google`;
 
   return (
@@ -18,4 +18,4 @@ const LoginButton = (props) => {
   );
 };
 
-export default LoginButton;
+export default memo(LoginButton);

@@ -11,7 +11,7 @@ import NProgress from 'nprogress';
 import notify from '../lib/notify';
 import confirm from '../lib/confirm';
 
-import { getUserBySlugApiMethod } from '../lib/api/public';
+import { getUserApiMethod } from '../lib/api/public';
 
 type Props = { user: { email: string; displayName: string } };
 
@@ -64,11 +64,14 @@ const Index = (props: Props) => {
   );
 };
 
-Index.getInitialProps = async () => {
-  const slug = 'almost-nihilist';
+Index.getInitialProps = async (ctx) => {
+  const headers: any = {};
 
-  const user = await getUserBySlugApiMethod(slug);
+  if (ctx.req.headers && ctx.req.headers.cookie) {
+    headers.cookie = ctx.req.headers.cookie;
+  }
 
+  const user = await getUserApiMethod({ headers });
   return { ...user };
 };
 

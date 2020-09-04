@@ -9,7 +9,7 @@ import { resizeImage } from '../lib/resizeImage';
 
 import Layout from '../components/layout';
 
-import { getUserBySlugApiMethod, updateProfileApiMethod } from '../lib/api/public';
+import { getUserApiMethod, updateProfileApiMethod } from '../lib/api/public';
 
 import {
   getSignedRequestForUploadApiMethod,
@@ -183,10 +183,14 @@ const YourSettings = (props: Props) => {
   );
 };
 
-YourSettings.getInitialProps = async () => {
-  const slug = 'almost-nihilist';
+YourSettings.getInitialProps = async (ctx) => {
+  const headers: any = {};
 
-  const user = await getUserBySlugApiMethod(slug);
+  if (ctx.req.headers && ctx.req.headers.cookie) {
+    headers.cookie = ctx.req.headers.cookie;
+  }
+
+  const user = await getUserApiMethod({ headers });
   return { ...user };
 };
 
