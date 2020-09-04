@@ -2,6 +2,7 @@ import Head from 'next/head';
 import React from 'react';
 import LoginButton from '../components/common/LoginButton';
 import Layout from '../components/layout';
+import withAuth from '../lib/withAuth';
 
 const Login = (props) => {
   return (
@@ -22,4 +23,4 @@ const Login = (props) => {
   );
 };
 
-export default Login;
+export default withAuth(Login, { logoutRequired: true });

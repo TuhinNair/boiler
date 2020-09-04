@@ -9,7 +9,8 @@ import { resizeImage } from '../lib/resizeImage';
 
 import Layout from '../components/layout';
 
-import { getUserApiMethod, updateProfileApiMethod } from '../lib/api/public';
+import { updateProfileApiMethod } from '../lib/api/public';
+import withAuth from '../lib/withAuth';
 
 import {
   getSignedRequestForUploadApiMethod,
@@ -183,15 +184,4 @@ const YourSettings = (props: Props) => {
   );
 };
 
-YourSettings.getInitialProps = async (ctx) => {
-  const headers: any = {};
-
-  if (ctx.req.headers && ctx.req.headers.cookie) {
-    headers.cookie = ctx.req.headers.cookie;
-  }
-
-  const user = await getUserApiMethod({ headers });
-  return { ...user };
-};
-
-export default YourSettings;
+export default withAuth(YourSettings);

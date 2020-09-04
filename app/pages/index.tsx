@@ -12,6 +12,7 @@ import notify from '../lib/notify';
 import confirm from '../lib/confirm';
 
 import { getUserApiMethod } from '../lib/api/public';
+import withAuth from '../lib/withAuth';
 
 type Props = { user: { email: string; displayName: string } };
 
@@ -75,4 +76,4 @@ Index.getInitialProps = async (ctx) => {
   return { ...user };
 };
 
-export default Index;
+export default withAuth(Index);

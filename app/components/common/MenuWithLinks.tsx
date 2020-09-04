@@ -43,7 +43,11 @@ const MenuWithLinks = (props: Props) => {
           ) : (
             <MenuItem
               onClick={() => {
-                Router.push(option.href, option.as || option.href);
+                if (option.externalServer) {
+                  window.location.href = option.href;
+                } else {
+                  Router.push(option.href, option.as || option.href);
+                }
                 handleClose();
               }}
               key={option.href}

@@ -93,7 +93,9 @@ const Layout = (props: Props) => {
                 },
                 {
                   text: 'Log out',
-                  href: '/logout',
+                  href: `${process.env.URL_API}/logout`,
+                  as: `${process.env.URL_API}/logout`,
+                  externalServer: true,
                   highlighterSlug: '/logout',
                 },
               ]}
