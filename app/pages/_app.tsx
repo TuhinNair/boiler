@@ -28,7 +28,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 MyApp.getInitialProps = async ({ Component, ctx }) => {
-  let pageProps = { isMobile: isMobile({ req: ctx.req }), firstGridItem: true };
+  let firstGridItem = true;
+
+  if (ctx.pathname.includes('/login')) {
+    firstGridItem = false;
+  }
+  let pageProps = { isMobile: isMobile({ req: ctx.req }), firstGridItem };
 
   if (Component.getInitialProps) {
     const compProps = await Component.getInitialProps(ctx);

@@ -4,6 +4,10 @@ import User from '../models/User';
 
 const router = express.Router();
 
+router.get('/get-user', (req, res) => {
+  res.json({ user: req.user || null });
+});
+
 router.post('/get-user-by-slug', async (req, res, next) => {
   try {
     const { slug } = req.body;
@@ -20,9 +24,8 @@ router.post('/user/update-profile', async (req, res, next) => {
   try {
     const { name, avatarUrl } = req.body;
 
-    const userId = '5f49e84f8de8d8f4c8e9ad5d';
     const updatedUser = await User.updateProfile({
-      userId: userId,
+      userId: req.user.id,
       name,
       avatarUrl,
     });

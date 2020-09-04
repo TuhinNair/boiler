@@ -122,7 +122,7 @@ const Layout = (props: Props) => {
           <p />
         </Grid>
       ) : null}
-      <Grid item sm={10} xs={12}>
+      <Grid item sm={firstGridItem ? 10 : 12} xs={12}>
         {isMobile ? <hr /> : null}
         {children}
       </Grid>

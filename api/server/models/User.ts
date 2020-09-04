@@ -131,7 +131,7 @@ class UserClass extends mongoose.Model {
       displayName,
       avatarUrl,
       slug,
-      isSignedUpViaGoogle: true,
+      isSignedupViaGoogle: true,
     });
 
     return _.pick(newUser, this.publicFields());
