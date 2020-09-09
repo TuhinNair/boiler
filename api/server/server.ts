@@ -7,6 +7,8 @@ import * as mongoose from 'mongoose';
 
 import api from './api';
 import { setupGoogle } from './google-auth';
+import { setupPasswordless } from './passwordless-auth';
+import { insertTemplates } from './models/EmailTemplate';
 
 // import logger from './logs';
 
@@ -46,7 +48,8 @@ const sessionOptions = {
 server.use(session(sessionOptions));
 
 setupGoogle({ server });
-
+insertTemplates();
+setupPasswordless({ server });
 api(server);
 
 server.get('*', (_, res) => {
